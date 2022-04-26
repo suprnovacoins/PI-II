@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center h1 text-primary">{{psicopedagogo.pessoa.nome}}</div>
+
+{% include '_nav.html' %}
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Nome</td>
+        <td>{{psicopedagogo.pessoa.nome}}</td>
+      </tr>
+      <tr>
+        <td>RG</td>
+        <td>{{psicopedagogo.pessoa.rg}}</td>
+      </tr>
+      <tr>
+        <td>CPF</td>
+        <td>{{psicopedagogo.pessoa.cpf}}</td>
+      </tr>
+      {% for contato in contatos %}
+      <tr>
+        <td>{{contato.tipo.tipo}}</td>
+        <td>{{contato.contato}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock content %}

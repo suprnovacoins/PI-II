@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center h1 text-success">{{title}}</div>
+    <div class="container">
+        {% from "_formhelpers.html" import render_field %}
+        <form method="post" enctype="multipart/form-data">
+        <div>
+           
+            <dt>
+            <label for="sel_p">Psicopedagogo</label>
+            </dt>
+            <dd>
+            <select name="psicopedagogo" id="sel_p" class="form-control">
+                {% for psicopedagogo in psicopedagogos %}
+                <option value="{{psicopedagogo.psicopedagogo_ID}}">{{psicopedagogo.pessoa.nome}}</option>
+                {% endfor %}
+              </select>
+            </dd>
+            <dt>
+            <label for="sel_paciente">Paciente</label>
+            </dt>
+            <dd>
+            <select name="paciente" id="sel_paciente" class="form-control">
+                {% for paciente in pacientes %}
+                <option value="{{paciente.paciente_ID}}">{{paciente.pessoa.nome}}</option>
+                {% endfor %}
+              </select>
+            </dd>
+            <dt>
+                <label for="sel_sala">Sala</label>
+                </dt>
+                <dd>
+                <select name="sala" id="sel_sala" class="form-control">
+                    {% for sala in salas %}
+                    <option value="{{sala.sala_ID}}">{{sala.nome}}</option>
+                    {% endfor %}
+                  </select>
+                  <a class="float-right btn btn-sm btn-outline-secondary"  href="{{url_for('add_sala')}}" role="button">Adicionar Sala</a>
+                </dd>
+                {{ render_field(form.obs, class="form-control") }}
+
+        </div>
+    <p><input type=submit value=Registrar>
+    </form>
+    </div>
+{% endblock content %}

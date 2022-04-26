@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center h1 text-primary">{{nome}}</div>
+
+{% include '_nav.html' %}
+
+<div class="text-center">
+  <tr>
+    <td><a href="{{ url_for('dia_anterior', ano=ano, mes=mes, dia = dia)}}" class="btn btn-outline-primary btn-lg mt-2 mb-2" role="button" aria-pressed="true">&lt;</a></td>
+    <td><a href="#" class="btn btn-primary btn-lg mt-2 mb-2" role="button" aria-pressed="true">{{dia}} de {{meses[mes - 1]}}</a></td>
+    <td><a href="{{ url_for('proximo_dia', ano=ano, mes=mes, dia = dia)}}" class="btn btn-outline-primary btn-lg mt-2 mb-2" role="button" aria-pressed="true">&gt;</a></td>
+  </tr>
+</div>
+
+<table class="table">
+  <tbody>
+    {% for hora in horas %}
+      <tr>
+        <td {% if horas[hora]["agora"] and hoje %}class="table-primary"{% endif %}><h3>{{horas[hora]['hora']}}</h3></td>
+          <td {% if horas[hora]["agora"] and hoje %}class="table-primary"{% endif %}><div class="container">
+            {% if horas[hora]['marcado'] %}
+            <div class="row table-primary">
+              {% for psicopedagogo in psicopedagogos %}
+                <div class="col text-center border">
+                  {{ psicopedagogo.pessoa.nome }}
+                </div>
+              {% endfor %}
+            </div>
+            <div class="row table-secondary">
+              {% for psicopedagogo in psicopedagogos %}
+                <div class="col border">
+                  Paciente
+                </div>
+                <div class="col border">
+                  Sala
+                </div>
+              {% endfor %}
+            </div>
+            <div class="row table-success">
+              {% for psicopedagogo in psicopedagogos %}
+
+              <div class="col">
+                {% for compromisso in horas[hora]['compromissos'] %}
+                <div class="row">
+                  {% if compromisso.psicopedagogo.pessoa.nome == psicopedagogo.pessoa.nome %}
+                    <div class="col">
+                      <a href={{url_for('atendimento', ID = compromisso.atendimento_ID)}}>    
+                        {{compromisso.paciente.pessoa.nome}}
+                      </a>
+                    </div>
+                      
+                    <div class="col">
+                      {{compromisso.sala.nome}}
+                    </div>
+                    {% else %}
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+            
+          </div></td>
+          
+            <td {% if horas[hora]["agora"] and hoje %}class="table-primary"><a class="btn float-right btn-outline-primary btn-sm"{% else %}><a class="btn float-right btn-outline-secondary btn-sm"{% endif %} href="{{url_for('agendamento', ano=ano, mes=mes, dia=dia, hora=hora)}}" role="button">+</a></td>
+          
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

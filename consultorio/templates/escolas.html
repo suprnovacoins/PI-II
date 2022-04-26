@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center h1 text-primary">{{nome}}</div>
+
+{% include '_nav.html' %}
+
+<table class="table">
+    <tbody>
+        {% for escola in escolas %}
+        <tr>
+            <td><a class="btn btn-outline-secondary" href="{{url_for('escola', ID=escola.escola_ID)}}" role="button">{{escola.escola_nome}}</a></td>
+            <td><a class="float-right btn btn-danger" href="{{url_for('apagar_escola', ID=escola.escola_ID)}}" role="button">Apagar</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock content %}

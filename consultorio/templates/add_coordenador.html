@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center h1 text-success">{{title}}</div>
+
+    {% include '_nav.html' %}
+
+    <div class="container">
+        {% from "_formhelpers.html" import render_field %}
+        <form method="post" enctype="multipart/form-data">
+        <div>
+
+            <dt>
+                <label for="sel_e">Escola</label>
+                </dt>
+            <dd>
+                <select name="escola" id="sel_e" class="form-control">
+                    {% for escola in escolas %}
+                    <option value="{{escola.escola_ID}}">{{escola.escola_nome}}</option>
+                    {% endfor %}
+                </select>
+                
+                <a class="float-right btn btn-sm btn-outline-secondary"  href="{{url_for('add_escola', next = 'add_coordenador')}}" role="button">Adicionar Escola</a>
+                
+            </dd>
+            <input type="hidden" name="next" value="{{ request.args.get('next', '')}}"/>
+            {{ render_field(form.nome, class="form-control") }}
+            {{ render_field(form.telefone, class="form-control") }}
+
+
+        </div>
+    <p><input type=submit value=Registrar>
+    </form>
+    </div>
+{% endblock content %}

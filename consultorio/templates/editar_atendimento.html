@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center h1 text-success">{{title}}</div>
+    <div class="container">
+        {% from "_formhelpers.html" import render_field %}
+        <form method="post" enctype="multipart/form-data">
+        <div>
+           
+            <dt>
+            <label for="sel_p">Psicopedagogo</label>
+            </dt>
+            <dd>
+            <select name="psicopedagogo" id="sel_p" class="form-control">
+                <option value="{{atendimento.psicopedagogo.psicopedagogo_ID}}">{{atendimento.psicopedagogo.pessoa.nome}}</option>
+                {% for psicopedagogo in psicopedagogos %}
+                {% if not psicopedagogo.pessoa.nome == atendimento.psicopedagogo.pessoa.nome %}<option value="{{psicopedagogo.psicopedagogo_ID}}">{{psicopedagogo.pessoa.nome}}</option>{% endif %}
+                {% endfor %}
+              </select>
+            </dd>
+            <dt>
+            <label for="sel_paciente">Paciente</label>
+            </dt>
+            <dd>
+            <select name="paciente" id="sel_paciente" class="form-control">
+                <option value="{{atendimento.paciente.paciente_ID}}">{{atendimento.paciente.pessoa.nome}}</option>
+                {% for paciente in pacientes %}
+                {% if not paciente.pessoa.nome == atendimento.paciente.pessoa.nome %}<option value="{{paciente.paciente_ID}}">{{paciente.pessoa.nome}}</option>{% endif %}
+                {% endfor %}
+              </select>
+            </dd>
+            <dt>
+                <label for="sel_sala">Sala</label>
+                </dt>
+                <dd>
+                <select name="sala" id="sel_sala" class="form-control">
+                    <option value="{{atendimento.sala.sala_ID}}">{{atendimento.sala.nome}}</option>
+                    {% for sala in salas %}
+                    {% if not sala.nome == atendimento.sala.nome %}<option value="{{sala.sala_ID}}">{{sala.nome}}</option>{% endif %}
+                    {% endfor %}
+                  </select>
+                </dd>
+                {{ render_field(form.hora, class="form-control",  value='%s:00' %hora) }}
+                {{ render_field(form.obs, class="form-control") }}
+
+        </div>
+    <p><input type=submit value=Atualizar>
+    </form>
+    </div>
+{% endblock content %}

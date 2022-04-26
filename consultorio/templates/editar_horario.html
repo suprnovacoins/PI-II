@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center h1 text-success">{{title}}</div>
+    <div class="container">
+        {% from "_formhelpers.html" import render_field %}
+        <form method="post" enctype="multipart/form-data">
+            {{ render_field(form.hora, class="form-control") }}
+
+    <p><input type=submit value=Atualizar>
+    </form>
+    </div>
+{% endblock content %}

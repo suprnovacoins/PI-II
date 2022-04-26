@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center h1 text-primary">{{nome}}</div>
+
+{% include '_nav.html' %}
+
+<table class="table">
+  <tbody>
+    <tr><td>Psicopedagogo</td><td>Paciente</td><td>Sala</td><td colspan="2">Data e Hora</td></tr>
+    <tr>
+      <td>{{atendimento.psicopedagogo.pessoa.nome}}</td>
+      <td>{{atendimento.paciente.pessoa.nome}}</td>
+      <td>{{atendimento.sala.nome}}</td>
+      <td>{{atendimento.data_hora}}</td>
+      <td><a class="btn float-right btn-info btn-sm" href={{url_for('editar_horario', ID = atendimento.atendimento_ID)}}>Editar Horário</a></td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr aria-rowspan="5" style="height: 300px;"><td colspan="5" class="text-center">
+      {% from "_formhelpers.html" import render_field %}
+      <form method="post" enctype="multipart/form-data">
+      {{ render_field(form.obs, class="form-control", style='min-height:400px;') }}
+      <input class="btn float-left btn-primary" type=submit value="Atualizar Observações">
+      <a class="btn float-right btn-danger" href={{url_for('apagar_atendimento', ID = atendimento.atendimento_ID)}}>Apagar</a>
+      </form>
+      </div></tr>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock content %}

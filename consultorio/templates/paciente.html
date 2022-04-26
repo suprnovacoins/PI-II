@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center h1 text-primary">{{paciente.pessoa.nome}}</div>
+
+{% include '_nav.html' %}
+
+
+  <table class="table">
+    <tbody>
+      <tr><td class="list-group-item-secondary" colspan="2"><div class="text-center">Paciente</div></td></tr>
+      <tr>
+        <td>Nome</td>
+        <td>{{paciente.pessoa.nome}}</td>
+      </tr>
+      <tr>
+        <td>RG</td>
+        <td>{{paciente.pessoa.rg}}</td>
+      </tr>
+      <tr>
+        <td>CPF</td>
+        <td>{{paciente.pessoa.cpf}}</td>
+      </tr>
+      {% for contato in contatos_paciente %}
+      <tr>
+        <td>{{contato.tipo.tipo}}</td>
+        <td>{{contato.contato}}</td>
+      </tr>
+      <tr>
+        <td>Observações</td>
+        <td>{{paciente.obs}}</td>
+      </tr>
+      {% endfor %}
+      <tr><td class="list-group-item-secondary" colspan="2"><div class="text-center">Responsavel</div></td></tr>
+      <tr>
+        <td>Nome</td>
+        <td>{{paciente.responsavel.nome}}</td>
+      </tr>
+      <tr>
+        <td>RG do Responsável</td>
+        <td>{{paciente.responsavel.rg}}</td>
+      </tr>
+      <tr>
+        <td>CPF do Responsável</td>
+        <td>{{paciente.responsavel.cpf}}</td>
+      </tr>
+      {% for contato in contatos_responsavel %}
+      <tr>
+        <td>{{contato.tipo.tipo}}</td>
+        <td>{{contato.contato}}</td>
+      </tr>
+      {% endfor %}
+      <tr><td class="list-group-item-secondary" colspan="2"><div class="text-center">Escola</div></td></tr>
+      <tr>
+        <td>Nome</td>
+        <td><a class="btn btn-outline" href="{{url_for('escola', ID=paciente.escola.escola_ID)}}" role="button">{{paciente.escola.escola_nome}}</a></td>
+      </tr>
+      <tr><td class="list-group-item-secondary" colspan="2"><div class="text-center">Coordenador</div></td></tr>
+      <tr>
+        <td>Nome</td>
+        <td><a class="btn btn-outline" href="{{url_for('coordenador', ID=paciente.coordenador.coordenador_ID)}}" role="button">{{paciente.coordenador.coordenador_nome}}</a></td>
+      </tr>
+      {% for contato in contatos_coordenador %}
+      <tr>
+        <td>{{contato.tipo.tipo}}</td>
+        <td>{{contato.contato}}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>
+          <a class="btn float-left btn-success" href="{{url_for('historico', ID= paciente.paciente_ID)}}" role="button">Histórico</a>
+        </td>
+        <td>
+          <a class="btn float-right btn-success" href="{{url_for('proximas', ID= paciente.paciente_ID)}}" role="button">Próximas consultas</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock content %}

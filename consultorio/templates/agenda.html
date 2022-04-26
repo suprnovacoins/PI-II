@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center h1 text-primary">{{nome}}</div>
+
+{% include '_nav.html' %}
+<div class="text-center">
+  <tr>
+    <td><a href="{{ url_for('agenda', ano=ano_anterior, mes=mes_anterior)}}" class="btn btn-outline-primary btn-lg mt-2 mb-2" role="button" aria-pressed="true">{{nome_anterior}} de {{ano_anterior}}</a></td>
+    <td><a href="#" class="btn btn-primary btn-lg mt-2 mb-2" role="button" aria-pressed="true">{{nome_atual}} de {{ano}}</a></td>
+    <td><a href="{{ url_for('agenda', ano=proximo_ano, mes=proximo_mes)}}" class="btn btn-outline-primary btn-lg mt-2 mb-2" role="button" aria-pressed="true">{{proximo_nome}} de {{proximo_ano}}</a></td>
+  </tr>
+</div>
+<div class="col-sm">
+  <table class="table table-bordered p-0">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 14%;">Domingo</th>
+          <th scope="col" style="width: 14%;">Segunda-feira</th>
+          <th scope="col" style="width: 14%;">Terca-feira</th>
+          <th scope="col" style="width: 14%;">Quarta-feira</th>
+          <th scope="col" style="width: 14%;">Quinta-feira</th>
+          <th scope="col" style="width: 14%;">Sexta-feira</th>
+          <th scope="col" style="width: 14%;">Sabado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for j in range(42) %}
+          {% if j%7 == 0 %}
+          <tr style="height: 300px">
+          {% endif %}
+            <td class="p-0">
+              <div class="card p-1" style="min-height: 300px;">
+                {% if l_mes[j]['outro_mes'] %}
+                <div class="card-header sm">{{ l_mes[j]['dia'] }}</div>
+                {% else %}
+                <a class="btn {% if l_mes[j]['hoje'] %}btn-primary{% else %}btn-outline-primary{% endif %} btn-sm" style="padding: 0px;" href="{{url_for('dia', ano=ano, mes=mes, dia=l_mes[j]['dia'], hora=0)}}" role="button"><div class="card-header sm">{{ l_mes[j]['dia'] }}</div></a>
+                {% endif %}
+                <div class="list-group">
+
+                  {% for atendimento in l_mes[j]['compromissos'] %}
+                    <a class="list-group-item list-group-item-info list-group-item-action" style="padding: 1px; margin: 1px;" href="{{url_for('atendimento', ID=atendimento.atendimento_ID)}}">{{atendimento.paciente.pessoa.nome.split(' ')[0]}} {{horas[atendimento.data_hora.hour]}}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </td>
+          {% if (j - 6)%7 == 0 %}
+          </tr>
+          {% endif %}
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+
+{% endblock content %}

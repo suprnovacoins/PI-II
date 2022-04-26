@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center h1 text-success">{{title}}</div>
+
+    {% include '_nav.html' %}
+    
+    <div class="container">
+        {% from "_formhelpers.html" import render_field %}
+        <form method="post" enctype="multipart/form-data">
+        <div>
+            <input type="hidden" name="next" value="{{ request.args.get('next', '')}}"/>
+            {{ render_field(form.nome, class="form-control") }}
+
+        </div>
+    <p><input type=submit value=Registrar>
+    </form>
+    </div>
+{% endblock content %}

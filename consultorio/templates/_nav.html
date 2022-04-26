@@ -1,0 +1,49 @@
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="{{url_for('home')}}">Hoje</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('esse_mes')}}">Calendario</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('psicopedagogos')}}">Psicopedagogos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('escolas')}}">Escolas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('salas')}}">Salas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('pacientes')}}">Pacientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('coordenadores')}}">Coordenadores</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Mais opções
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{url_for('add_psicopedagogo')}}">Adicionar Psicopedagogo</a>
+          <a class="dropdown-item" href="{{url_for('add_paciente')}}">Adicionar Paciente</a>
+          <a class="dropdown-item" href="{{url_for('add_coordenador')}}">Adicionar Coordenador</a>
+          <a class="dropdown-item" href="{{url_for('add_escola')}}">Adicionar Escola</a>
+          <a class="dropdown-item" href="{{url_for('add_situacao')}}">Adicionar Situação</a>
+          <a class="dropdown-item" href="{{url_for('add_sala')}}">Adicionar Sala</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{url_for('logout')}}">Desconectar</a>
+        </div>
+      </li>
+    </ul>
+    <form class="d-flex" action="{{ url_for('procurar')}}" method="POST" enctype="multipart/form-data">
+      <input class="form-control me-2" type="search" name="nome" placeholder="Paciente" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Procurar</button>
+    </form>
+  </div>
+</nav>

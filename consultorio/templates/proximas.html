@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center h1 text-primary">{{paciente.pessoa.nome}} Próximas Consultas</div>
+
+{% include '_nav.html' %}
+
+
+  <table class="table">
+    <tbody>
+        <tr>
+            <td>Data e Hora</td>
+            <td>Observações</td>
+        </tr>
+      {% for atendimento in atendimentos %}
+      <tr>
+        <td>{{atendimento.data_hora}}</td>
+        <td>{{atendimento.obs}}</td>
+        <td><a class="btn float-right btn-outline-secondary" href="{{url_for('atendimento', ID = atendimento.atendimento_ID)}}">Visualizar</a></td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+
+{% endblock content %}
